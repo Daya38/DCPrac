@@ -1,0 +1,21 @@
+clc;
+clear;
+close all;
+N = 100000;
+x = randn(1,N);
+mu = mean(x);
+sigma2 = var(x);
+t = -3:0.1:3;
+pdfn = (1./(sqrt(2.*pi.*sigma2))) .* exp(-((t-mu).*(t-mu))./(2.*sigma2) );
+subplot(2,1,1);
+plot(t, pdfn);
+title('PDF of normal distibution');
+syms t;
+cdfn = inline(int((1./(sqrt(2.*pi.*sigma2))) .* exp(-((t-mu).*(t-mu))./(2.*sigma2.*sigma2) )));
+t = -3:0.01:3;
+subplot(2,1,2);
+y = cdfn(t);
+plot(t,y);
+title('CDF of normal distribution');
+xlabel('value');
+ylabel('Probability')
